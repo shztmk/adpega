@@ -12,5 +12,12 @@
             "name": "shztmk"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "ramsey/conventional-commits": "^1.5",
+        "captainhook/captainhook": "^5.16"
+    },
+    "scripts": {
+        "prepare": "conventional-commits prepare",
+        "post-autoload-dump": "vendor/bin/captainhook install -f -s"
+    }
 }

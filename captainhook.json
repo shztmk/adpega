@@ -1,0 +1,10 @@
+{
+  "commit-msg": {
+    "enabled": true,
+    "actions": [
+      {
+        "action": "\\Ramsey\\CaptainHook\\ValidateConventionalCommit"
+      }
+    ]
+  }
+}
