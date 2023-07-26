@@ -1,0 +1,16 @@
+{
+    "name": "shztmk/adpega",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Shztmk\\Adpega\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "shztmk"
+        }
+    ],
+    "require": {}
+}
