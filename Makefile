@@ -4,4 +4,7 @@ prepare:
 commit:
 	docker-compose run --rm php82 git commit
 
-.PHONY: prepare, commit
+psalm:
+	docker-compose run --rm php82 composer psalm
+
+.PHONY: prepare, commit, psalm

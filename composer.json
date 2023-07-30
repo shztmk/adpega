@@ -4,7 +4,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Shztmk\\Adpega\\": "src/"
+            "Shztmk\\Adpega\\": "./"
         }
     },
     "authors": [
@@ -14,10 +14,12 @@
     ],
     "require-dev": {
         "ramsey/conventional-commits": "^1.5",
-        "captainhook/captainhook": "^5.16"
+        "captainhook/captainhook": "^5.16",
+        "vimeo/psalm": "^5.13"
     },
     "scripts": {
         "prepare": "conventional-commits prepare",
-        "post-autoload-dump": "vendor/bin/captainhook install -f -s"
+        "post-autoload-dump": "vendor/bin/captainhook install -f -s",
+        "psalm": "psalm"
     }
 }
