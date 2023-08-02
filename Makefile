@@ -5,7 +5,10 @@ psalm:
 	docker-compose run --rm php82 composer psalm
 
 phpcbf:
-	docker-compose run --rm php82 composer phpcbf
+	docvker-compose run --rm php82 composer phpcbf
+
+phpmd:
+	docker-compose run --rm php82 composer phpmd
 
 init-dev:
 	docker-compose run --rm php82 composer install
@@ -14,4 +17,4 @@ init-dev:
 install-hook:
 	docker-compose run --rm php82 ./vendor/bin/captainhook install --only-enabled --run-mode=docker --run-exec="docker-compose run --rm  -T php82"
 
-.PHONY: prepare, psalm, phpcbf, init-dev, install-hook
+.PHONY: prepare, psalm, phpcbf, phpmd, init-dev, install-hook
