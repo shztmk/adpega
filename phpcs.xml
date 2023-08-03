@@ -5,7 +5,16 @@
         xsi:noNamespaceSchemaLocation="phpcs.xsd"
 >
     <arg name="colors"/>
+
     <rule ref="PSR12"/>
+    <rule ref="SlevomatCodingStandard">
+        <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectStrictTypesFormat"/>
+    </rule>
+    <rule ref="Generic.Formatting.SpaceAfterCast"/>
+    <rule ref="PEAR.WhiteSpace.ObjectOperatorIndent"/>
+    <rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
+
     <arg name="basepath" value="./"/>
+    <file>app</file>
     <exclude-pattern>/vendor/*</exclude-pattern>
 </ruleset>

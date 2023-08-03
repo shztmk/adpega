@@ -12,12 +12,16 @@
             "name": "shztmk"
         }
     ],
+    "require": {
+        "php": "^8.2"
+    },
     "require-dev": {
         "ramsey/conventional-commits": "^1.5",
         "captainhook/captainhook": "^5.16",
         "vimeo/psalm": "^5.13",
         "squizlabs/php_codesniffer": "^3.7",
-        "phpmd/phpmd": "^2.13"
+        "phpmd/phpmd": "^2.13",
+        "slevomat/coding-standard": "^8.13"
     },
     "scripts": {
         "prepare": "conventional-commits prepare",
@@ -25,5 +29,10 @@
         "psalm": "psalm",
         "phpcbf": "phpcbf -vp --standard=./phpcs.xml .",
         "phpmd": "phpmd ./ text ruleset.xml"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
