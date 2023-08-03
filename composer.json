@@ -23,13 +23,6 @@
         "phpmd/phpmd": "^2.13",
         "slevomat/coding-standard": "^8.13"
     },
-    "scripts": {
-        "prepare": "conventional-commits prepare",
-        "post-autoload-dump": "vendor/bin/captainhook install -f -s",
-        "psalm": "psalm",
-        "phpcbf": "phpcbf -vp --standard=./phpcs.xml .",
-        "phpmd": "phpmd ./ text ruleset.xml"
-    },
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
