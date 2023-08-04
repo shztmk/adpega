@@ -13,7 +13,10 @@ phpcbf:
 phpmd:
 	docker-compose run --rm php82 sh -c "./vendor/bin/phpmd ./ text ruleset.xml"
 
+test:
+	docker-compose run --rm php82 sh -c "./vendor/bin/phpunit"
+
 install-hook:
 	docker-compose run --rm php82 sh -c "./vendor/bin/captainhook install --only-enabled --run-mode=docker --run-exec='docker-compose run --rm  -T php82'"
 
-.PHONY: prepare, psalm, phcs, phpcbf, phpmd, install-hook
+.PHONY: prepare, psalm, phcs, phpcbf, phpmd, test, install-hook
