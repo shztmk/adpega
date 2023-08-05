@@ -20,6 +20,23 @@ services:
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       - adpega_network
+  mysql81:
+    image: mysql:8.1
+    ports:
+      - "3306:3307"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: adpega_example
+      MYSQL_USER: adpega
+      MYSQL_PASSWORD: adpega
+      TZ: Asia/Tokyo
+    volumes:
+      - ./docker/mysql81/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./docker/mysql81/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./docker/mysql81/data:/var/lib/mysql
+    restart: always
+    networks:
+      - adpega_network
 
 networks:
   adpega_network:

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Adpega\AppTests;
 
 use Adpega\App\Example;
+use PDO;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -39,5 +40,19 @@ final class ExampleTest extends TestCase
             'data set 3' => [1, 0, 1],
             'data set 4' => [2, 1, 1],
         ];
+    }
+
+    #[Test]
+    public function testConnectPdo(): void
+    {
+        $dbh = new PDO('mysql:host=mysql81', 'adpega', 'adpega');
+        $databases = $dbh->query('SHOW DATABASES')->fetchAll();
+        self::assertContains(
+            [
+                'Database' => 'information_schema',
+                0 => 'information_schema',
+            ],
+            $databases,
+        );
     }
 }

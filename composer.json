@@ -18,7 +18,8 @@
         }
     ],
     "require": {
-        "php": "^8.2"
+        "php": "^8.2",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "ramsey/conventional-commits": "^1.5",
