@@ -9,7 +9,8 @@ RUN apk --no-cache add \
     git \
     linux-headers
 
-RUN pecl install xdebug && docker-php-ext-enable xdebug
+RUN pecl install xdebug redis \
+    && docker-php-ext-enable xdebug redis
 
 RUN docker-php-ext-install \
     pdo_mysql

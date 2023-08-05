@@ -22,6 +22,7 @@ services:
       - adpega_network
   mysql81:
     image: mysql:8.1
+    container_name: mysql
     ports:
       - "3306:3307"
     environment:
@@ -34,6 +35,17 @@ services:
       - ./docker/mysql81/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./docker/mysql81/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./docker/mysql81/data:/var/lib/mysql
+    restart: always
+    networks:
+      - adpega_network
+  redis70:
+    image: redis:7.0-alpine
+    container_name: redis
+    volumes:
+      - ./docker/redis70/data:/data
+    ports:
+      - "26379:6379"
+      - "6379:6379"
     restart: always
     networks:
       - adpega_network

@@ -10,6 +10,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
+use Redis;
 
 /**
  * @covers \Adpega\App\Example::sum
@@ -45,7 +46,7 @@ final class ExampleTest extends TestCase
     #[Test]
     public function testConnectPdo(): void
     {
-        $dbh = new PDO('mysql:host=mysql81', 'adpega', 'adpega');
+        $dbh = new PDO('mysql:host=mysql', 'adpega', 'adpega');
         $databases = $dbh->query('SHOW DATABASES')->fetchAll();
         self::assertContains(
             [
@@ -53,6 +54,14 @@ final class ExampleTest extends TestCase
                 0 => 'information_schema',
             ],
             $databases,
+        );
+    }
+
+    #[Test]
+    public function testConnectRedis(): void
+    {
+        self::assertTrue(
+            (new Redis())->connect('redis'),
         );
     }
 }
