@@ -13,10 +13,20 @@ phpcbf:
 phpmd:
 	docker-compose run --rm php82 sh -c "./vendor/bin/phpmd ./ text ruleset.xml"
 
+codecept-clean:
+	docker-compose run --rm php82 sh -c "./vendor/bin/codecept clean"
+
 test:
+	$(MAKE) unit-test
+	$(MAKE) acceptance-test
+
+unit-test:
 	docker-compose run --rm php82 sh -c "./vendor/bin/phpunit"
+
+acceptance-test:
+	docker-compose run --rm php82 sh -c "./vendor/bin/codecept run acceptance"
 
 install-hook:
 	docker-compose run --rm php82 sh -c "./vendor/bin/captainhook install --only-enabled --run-mode=docker --run-exec='docker-compose run --rm  -T php82'"
 
-.PHONY: prepare, psalm, phcs, phpcbf, phpmd, test, install-hook
+.PHONY: prepare, psalm, phcs, phpcbf, phpmd, codecept-clean, test, unit-test, acceptance-test, install-hook

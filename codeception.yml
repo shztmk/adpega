@@ -1,0 +1,42 @@
+namespace: Adpega\AppTests\Acceptance
+support_namespace: Support
+# suite config
+suites:
+    acceptance:
+        actor: AcceptanceTester
+        path: .
+        modules:
+            enabled:
+                - WebDriver:
+                    url: http://host.docker.internal:8080
+                    protocol: http
+                    host: host.docker.internal
+                    port: 4444
+                    browser: chrome
+                
+        # add Codeception\Step\Retry trait to AcceptanceTester to enable retries
+        step_decorators:
+            - Codeception\Step\ConditionalAssertion
+            - Codeception\Step\TryTo
+            - Codeception\Step\Retry
+
+extensions:
+    enabled: [Codeception\Extension\RunFailed]
+
+params: 
+    - env
+
+gherkin:
+    features: features/**/*.feature
+
+# additional paths
+paths:
+    tests: app/tests/Acceptance
+    output: app/tests/Acceptance/_output
+    data: app/tests/Acceptance/Support/Data
+    support: app/tests/Acceptance/Support
+    envs: app/tests/Acceptance/_envs
+
+settings:
+    shuffle: false
+    lint: true

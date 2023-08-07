@@ -11,6 +11,7 @@
         <exclude name="SlevomatCodingStandard.Attributes.AttributesOrder"/>
         <exclude name="SlevomatCodingStandard.Classes.ClassStructure.IncorrectGroupOrder"/>
         <exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces"/>
+        <exclude name="SlevomatCodingStandard.Classes.TraitUseSpacing.IncorrectLinesCountBeforeFirstUse"/>
         <exclude name="SlevomatCodingStandard.Commenting.RequireOneLineDocComment.MultiLineDocComment"/>
         <exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses.UselessParentheses"/>
         <exclude name="SlevomatCodingStandard.Files.TypeNameMatchesFileName.NoMatchBetweenTypeNameAndFileName"/>
@@ -25,4 +26,5 @@
     <arg name="basepath" value="./"/>
     <file>app</file>
     <exclude-pattern>/vendor/*</exclude-pattern>
+    <exclude-pattern>/app/tests/Acceptance/Support/_generated/*</exclude-pattern>
 </ruleset>

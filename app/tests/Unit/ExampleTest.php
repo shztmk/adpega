@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Adpega\AppTests;
+namespace Adpega\AppTests\Unit;
 
 use Adpega\App\Example;
 use PDO;

@@ -7,13 +7,21 @@ RUN apk --no-cache add \
     autoconf \
     build-base \
     git \
+    libzip-dev \
     linux-headers
 
-RUN pecl install xdebug redis \
-    && docker-php-ext-enable xdebug redis
-
 RUN docker-php-ext-install \
-    pdo_mysql
+    pdo_mysql \
+    zip
+
+RUN pecl install \
+    redis \
+    xdebug
+
+RUN docker-php-ext-enable \
+    redis \
+    sodium \
+    xdebug
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 

@@ -49,6 +49,15 @@ services:
     restart: always
     networks:
       - adpega_network
+  selenium:
+    image: seleniarm/standalone-chromium:latest
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+    volumes:
+      - /dev/shm:/dev/shm
+    networks:
+      - adpega_network
 
 networks:
   adpega_network:

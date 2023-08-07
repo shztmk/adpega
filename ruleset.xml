@@ -11,4 +11,5 @@
     <rule ref="rulesets/naming.xml"/>
     <rule ref="rulesets/unusedcode.xml"/>
     <exclude-pattern>/vendor/*</exclude-pattern>
+    <exclude-pattern>/app/tests/Acceptance/Support/_generated/*</exclude-pattern>
 </ruleset>

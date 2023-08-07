@@ -12,6 +12,7 @@
         <directory name="." />
         <ignoreFiles>
             <directory name="vendor" />
+            <directory name="app/tests/Acceptance/Support/_generated" />
         </ignoreFiles>
     </projectFiles>
 </psalm>
