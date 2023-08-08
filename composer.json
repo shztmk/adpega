@@ -26,6 +26,7 @@
         "captainhook/captainhook": "^5.16",
         "codeception/codeception": "^5.0",
         "codeception/module-webdriver": "*",
+        "jetbrains/phpstorm-attributes": "^1.0",
         "phpmd/phpmd": "^2.13",
         "phpunit/phpunit": "^10.3",
         "ramsey/conventional-commits": "^1.5",

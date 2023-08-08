@@ -26,7 +26,13 @@ unit-test:
 acceptance-test:
 	docker-compose run --rm php82 sh -c "./vendor/bin/codecept run acceptance"
 
+ci:
+	$(MAKE) psalm
+	$(MAKE) phpcs
+	$(MAKE) phpmd
+	$(MAKE) test
+
 install-hook:
 	docker-compose run --rm php82 sh -c "./vendor/bin/captainhook install --only-enabled --run-mode=docker --run-exec='docker-compose run --rm  -T php82'"
 
-.PHONY: prepare, psalm, phcs, phpcbf, phpmd, codecept-clean, test, unit-test, acceptance-test, install-hook
+.PHONY: prepare, psalm, phcs, phpcbf, phpmd, codecept-clean, test, unit-test, acceptance-test, ci, install-hook

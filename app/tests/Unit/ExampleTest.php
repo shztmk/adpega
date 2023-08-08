@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Adpega\AppTests\Unit;
 
 use Adpega\App\Example;
+use JetBrains\PhpStorm\Language;
 use PDO;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -43,18 +44,39 @@ final class ExampleTest extends TestCase
         ];
     }
 
+    /**
+     * @param array<int|string, string> $toBeContained
+     */
     #[Test]
-    public function testConnectPdo(): void
+    #[DataProvider('connectPdoProvider')]
+    public function testConnectPdo(array $toBeContained, #[Language('SQL')] string $query): void
     {
         $dbh = new PDO('mysql:host=mysql', 'adpega', 'adpega');
-        $databases = $dbh->query('SHOW DATABASES')->fetchAll();
-        self::assertContains(
-            [
-                'Database' => 'information_schema',
-                0 => 'information_schema',
+        $resultSet = $dbh->query($query)->fetchAll();
+        self::assertContains($toBeContained, $resultSet);
+    }
+
+    /**
+     * @return array<string , array{0: array<int|string, string>, 1: string}>
+     */
+    public static function connectPdoProvider(): array
+    {
+        return [
+            'data set 1' => [
+                [
+                    'Database' => 'information_schema',
+                    0 => 'information_schema',
+                ],
+                'SHOW DATABASES',
             ],
-            $databases,
-        );
+            'data set 2' => [
+                [
+                    'current_user()' => 'adpega@%',
+                    0 => 'adpega@%',
+                ],
+                'SELECT current_user()',
+            ],
+        ];
     }
 
     #[Test]
