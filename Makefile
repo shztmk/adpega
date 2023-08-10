@@ -13,6 +13,9 @@ phpcbf:
 phpmd:
 	docker-compose run --rm php82 sh -c "./vendor/bin/phpmd ./ text ruleset.xml"
 
+deptrac:
+	docker-compose run --rm php82 sh -c "./vendor/bin/deptrac"
+
 codecept-clean:
 	docker-compose run --rm php82 sh -c "./vendor/bin/codecept clean"
 
@@ -30,6 +33,7 @@ ci:
 	$(MAKE) psalm
 	$(MAKE) phpcs
 	$(MAKE) phpmd
+	$(MAKE) deptrac
 	$(MAKE) test
 
 install-hook:
