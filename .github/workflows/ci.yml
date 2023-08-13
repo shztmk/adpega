@@ -1,0 +1,47 @@
+name: ci
+
+on:
+  push:
+
+jobs:
+  php-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3 # https://github.com/actions/checkout
+
+      - name: Setup php
+        uses: shivammathur/setup-php@v2 # https://github.com/shivammathur/setup-php
+        with:
+          php-version: 8.2
+          tools: composer:v2
+
+      # https://github.com/actions/cache/blob/main/examples.md#php---composer
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      # https://github.com/actions/runner/issues/449
+      - name: Set up dependency caching for faster installs
+        uses: actions/cache@v3 # https://github.com/actions/cache
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Run composer install if cache is not hit
+        uses: nick-invision/retry@v2 # https://github.com/nick-fields/retry
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        with:
+          timeout_minutes: 3
+          max_attempts: 3
+          retry_on: error
+          command: composer validate --no-check-publish && composer install --prefer-dist --no-progress
+
+      - name: Up containers for testing
+        run: docker-compose up -d nginx-test
+
+      - name: Run ci scripts
+        run: make ci
