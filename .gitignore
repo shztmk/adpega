@@ -3,4 +3,5 @@
 .phpunit.cache/test-results
 /docker/mysql81/data
 /docker/redis70/data
-/vendor/
+/storage
+/vendor

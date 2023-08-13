@@ -13,6 +13,7 @@ suites:
                     host: host.docker.internal
                     port: 4444
                     browser: chrome
+                - \Adpega\AppTests\Acceptance\Support\Modules\CachegrindNaming
                 
         # add Codeception\Step\Retry trait to AcceptanceTester to enable retries
         step_decorators:

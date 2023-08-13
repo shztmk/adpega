@@ -24,10 +24,10 @@ test:
 	$(MAKE) acceptance-test
 
 unit-test:
-	docker-compose run --rm php82 sh -c "./vendor/bin/phpunit"
+	docker-compose run --rm php82-test sh -c "./vendor/bin/phpunit"
 
 acceptance-test:
-	docker-compose run --rm php82 sh -c "./vendor/bin/codecept run acceptance"
+	docker-compose run --rm php82-test sh -c "./vendor/bin/codecept run acceptance"
 
 ci:
 	$(MAKE) psalm

@@ -18,7 +18,7 @@ final class AcceptanceTester extends Actor
     #[When('I access the root URL with the query string { user=:user }')]
     public function iAccessTheRootURLWithTheQueryString(string $user): void
     {
-        $this->amOnPage('/?user=' . $user);
+        $this->amOnPage('/?XDEBUG_TRIGGER&user=' . $user);
     }
 
     #[Then('the response body is :responseBody')]

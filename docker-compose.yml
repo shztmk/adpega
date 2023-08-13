@@ -5,10 +5,29 @@ services:
     working_dir: /var/www
     volumes:
       - .:/var/www
+      - ./docker/php82/99-xdebug.ini:/usr/local/etc/php/conf.d/99-xdebug.ini
     ports:
       - '9000:9000'
     depends_on:
       - nginx
+      - mysql81
+      - redis70
+    networks:
+      - adpega_network
+  php82-test:
+    build: ./docker/php82
+    container_name: php82
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+      - ./docker/php82/99-xdebug.profiler.ini:/usr/local/etc/php/conf.d/99-xdebug.ini
+    ports:
+      - '9000:9000'
+    depends_on:
+      - nginx
+      - mysql81
+      - redis70
+      - selenium
     networks:
       - adpega_network
   nginx:

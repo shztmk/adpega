@@ -26,4 +26,3 @@ RUN docker-php-ext-enable \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY php.development.ini /usr/local/etc/php/php.ini
-COPY 99-xdebug.ini /usr/local/etc/php/conf.d/
