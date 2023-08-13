@@ -24,17 +24,19 @@ test:
 	$(MAKE) acceptance-test
 
 unit-test:
-	docker-compose run --rm php82-test sh -c "./vendor/bin/phpunit"
+	docker-compose exec -T php82-test sh -c "./vendor/bin/phpunit"
 
 acceptance-test:
-	docker-compose run --rm php82-test sh -c "./vendor/bin/codecept run acceptance"
+	docker-compose exec -T php82-test sh -c "./vendor/bin/codecept run acceptance"
 
 ci:
-	$(MAKE) psalm
-	$(MAKE) phpcs
-	$(MAKE) phpmd
-	$(MAKE) deptrac
-	$(MAKE) test
+	docker-compose exec -T php82-test sh -c " \
+		./vendor/bin/phpunit && \
+		./vendor/bin/codecept run acceptance && \
+		./vendor/bin/psalm --no-cache && \
+		./vendor/bin/phpcs -ps --standard=./phpcs.xml && \
+		./vendor/bin/phpmd ./ text ruleset.xml && \
+		./vendor/bin/deptrac"
 
 install-hook:
 	docker-compose run --rm php82 sh -c "./vendor/bin/captainhook install --only-enabled --run-mode=docker --run-exec='docker-compose run --rm  -T php82'"
