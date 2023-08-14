@@ -2,6 +2,7 @@ version: '3'
 services:
   php82:
     build: ./docker/php82
+    container_name: php
     working_dir: /var/www
     ports:
       - '9000:9000'
@@ -16,6 +17,7 @@ services:
       - adpega_network
   nginx:
     image: nginx:stable-alpine
+    container_name: nginx
     ports:
       - '8080:80'
     volumes:
@@ -62,7 +64,7 @@ services:
       retries: 30
   php82-test:
     build: ./docker/php82
-    container_name: php82
+    container_name: php
     working_dir: /var/www
     ports:
       - '9000:9000'
@@ -94,6 +96,7 @@ services:
         condition: service_started
   selenium:
     image: seleniarm/standalone-chromium:latest
+    container_name: selenium
     ports:
       - "4444:4444"
       - "7900:7900"

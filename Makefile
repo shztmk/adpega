@@ -1,23 +1,46 @@
-prepare:
-	docker-compose run --rm php82 sh -c "./vendor/bin/conventional-commits prepare"
+pc:=`docker ps --format "{{.ID}}" --filter "name=php"`
 
 psalm:
-	docker-compose run --rm php82 sh -c "./vendor/bin/psalm --no-cache"
+	if [ -n $(pc) ]; then\
+		docker exec $(pc) sh -c "./vendor/bin/psalm --no-cache";\
+	else\
+		docker-compose run --rm php82 sh -c "./vendor/bin/psalm --no-cache";\
+    fi
 
 phpcs:
-	docker-compose run --rm php82 sh -c "./vendor/bin/phpcs -ps --standard=./phpcs.xml"
+	if [ -n $(pc) ]; then\
+		docker exec $(pc) sh -c "./vendor/bin/phpcs -ps --standard=./phpcs.xml";\
+	else\
+		docker-compose run --rm php82 sh -c "./vendor/bin/phpcs -ps --standard=./phpcs.xml";\
+    fi
 
 phpcbf:
-	docker-compose run --rm php82 sh -c "./vendor/bin/phpcbf -p --standard=./phpcs.xml"
+	if [ -n $(pc) ]; then\
+		docker exec $(pc) sh -c "./vendor/bin/phpcbf -p --standard=./phpcs.xml";\
+	else\
+		docker-compose run --rm php82 sh -c "./vendor/bin/phpcbf -p --standard=./phpcs.xml";\
+    fi
 
 phpmd:
-	docker-compose run --rm php82 sh -c "./vendor/bin/phpmd ./ text ruleset.xml"
+	if [ -n $(pc) ]; then\
+		docker exec $(pc) sh -c "./vendor/bin/phpmd ./ text ruleset.xml";\
+	else\
+		docker-compose run --rm php82 sh -c "./vendor/bin/phpmd ./ text ruleset.xml";\
+    fi
 
 deptrac:
-	docker-compose run --rm php82 sh -c "./vendor/bin/deptrac"
+	if [ -n $(pc) ]; then\
+		docker exec $(pc) sh -c "./vendor/bin/deptrac";\
+	else\
+		docker-compose run --rm php82 sh -c "./vendor/bin/deptrac";\
+    fi
 
 codecept-clean:
-	docker-compose run --rm php82 sh -c "./vendor/bin/codecept clean"
+	if [ -n $(pc) ]; then\
+		docker exec $(pc) sh -c "./vendor/bin/codecept clean";\
+	else\
+		docker-compose run --rm php82 sh -c "./vendor/bin/codecept clean";\
+    fi
 
 test:
 	$(MAKE) unit-test
@@ -30,15 +53,20 @@ acceptance-test:
 	docker-compose exec -T php82-test sh -c "./vendor/bin/codecept run acceptance"
 
 ci:
-	docker-compose exec -T php82-test sh -c " \
-		./vendor/bin/phpunit && \
-		./vendor/bin/codecept run acceptance && \
-		./vendor/bin/psalm --no-cache && \
-		./vendor/bin/phpcs -ps --standard=./phpcs.xml && \
-		./vendor/bin/phpmd ./ text ruleset.xml && \
-		./vendor/bin/deptrac"
+	if [ -n $(pc) ]; then\
+        docker-compose stop;\
+    fi;\
+    docker-compose up -d nginx-test
+	$(MAKE) test
+	$(MAKE) psalm
+	$(MAKE) phpcs
+	$(MAKE) phpmd
+	$(MAKE) deptrac
+
+prepare:
+	docker-compose run --rm php82 sh -c "./vendor/bin/conventional-commits prepare"
 
 install-hook:
-	docker-compose run --rm php82 sh -c "./vendor/bin/captainhook install --only-enabled --run-mode=docker --run-exec='docker-compose run --rm  -T php82'"
+	docker-compose run --rm php82 sh -c "./vendor/bin/captainhook install --only-enabled --run-mode=docker --run-exec='docker-compose run --rm -T php82'"
 
-.PHONY: prepare, psalm, phcs, phpcbf, phpmd, codecept-clean, test, unit-test, acceptance-test, ci, install-hook
+.PHONY: psalm, phcs, phpcbf, phpmd, codecept-clean, test, unit-test, acceptance-test, ci, prepare, install-hook

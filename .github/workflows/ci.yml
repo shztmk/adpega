@@ -40,8 +40,5 @@ jobs:
           retry_on: error
           command: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
-      - name: Up containers for testing
-        run: docker-compose up -d nginx-test
-
       - name: Run ci scripts
         run: make ci
