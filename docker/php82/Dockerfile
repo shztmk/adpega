@@ -11,6 +11,7 @@ RUN apk --no-cache add \
     linux-headers
 
 RUN docker-php-ext-install \
+    opcache \
     pdo_mysql \
     zip
 

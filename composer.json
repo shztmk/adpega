@@ -20,7 +20,8 @@
     "require": {
         "php": "^8.2",
         "ext-pdo": "*",
-        "ext-redis": "*"
+        "ext-redis": "*",
+        "ext-zend-opcache": "*"
     },
     "require-dev": {
         "captainhook/captainhook": "^5.16",
