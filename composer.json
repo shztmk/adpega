@@ -4,7 +4,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Adpega\\App\\": "./app/src"
+            "Adpega\\App\\": "./app/src",
+            "Pkg\\": "./pkg"
         }
     },
     "autoload-dev": {
