@@ -4,19 +4,21 @@ declare(strict_types=1);
 
 namespace Pkg\Router;
 
+use Pkg\SuperGlobal\Elements\Get;
+use Pkg\SuperGlobal\Elements\Post;
+use Pkg\SuperGlobal\Elements\Server;
+
 final readonly class Dispatcher
 {
     /**
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @psalm-suppress MixedInferredReturnType,PossiblyUndefinedArrayOffset, MixedMethodCall, MixedReturnStatement, PossiblyUnusedMethod
+     * @psalm-suppress MixedInferredReturnType, MixedMethodCall, MixedReturnStatement
      */
     public function dispatch(Router $router): string
     {
-        // phpcs:disable SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
-        $httpMethod = $_SERVER['REQUEST_METHOD'];
-        $path = explode('?', $_SERVER['REQUEST_URI'])[0];
-        $getParams = $_GET;
-        $postParams = $_POST;
+        $httpMethod = Server::requestMethod();
+        $path = explode('?', Server::requestUri())[0];
+        $getParams = Get::all();
+        $postParams = Post::all();
         // phpcs:enable
 
         $handler = $router->get(

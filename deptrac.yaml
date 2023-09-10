@@ -1,24 +1,19 @@
 deptrac:
   paths:
     - ./app/src
+    - ./pkg
   exclude_files:
     - '#.*test.*#'
   layers:
-    - name: Controller
+    - name: SuperGlobal
       collectors:
         - type: className
-          value: .*Controller.*
-    - name: Repository
+          regex: Pkg\\SuperGlobal\\.*
+    - name: Router
       collectors:
         - type: className
-          value: .*Repository.*
-    - name: Service
-      collectors:
-        - type: className
-          value: .*Service.*
+          regex: Pkg\\Router\\.*
   ruleset:
-    Controller:
-      - Service
-    Service:
-      - Repository
-    Repository:
+    SuperGlobal:
+    Router:
+      - SuperGlobal
